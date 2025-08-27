@@ -233,7 +233,6 @@ exports.remove = async (req, res) => {
       });
     }
 
-    // Delete associated files
     if (fs.existsSync(book.image)) {
       fs.unlinkSync(book.image);
     }
