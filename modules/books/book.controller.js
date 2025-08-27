@@ -255,3 +255,26 @@ exports.remove = async (req, res) => {
     });
   }
 };
+
+exports.getFeatured = async (req, res) => {
+  try {
+    const books = await Book.find({ featured: true })
+      .populate("category", "name")
+      .populate("createdBy", "name email")
+      .sort({ createdAt: -1 });
+
+    const booksWithUrls = books.map(book => generateFileUrls(book, req));
+
+    return res.status(200).json({
+      status: true,
+      message: "Featured books fetched successfully",
+      data: booksWithUrls,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: false,
+      message: "Server error",
+      error: error.message,
+    });
+  }
+};

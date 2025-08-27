@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { create, getAll, getById, update, remove } = require("./book.controller");
+const { create, getAll, getById, update, remove, getFeatured } = require("./book.controller");
 const auth = require("../../middleware/auth");
 const upload = require("../../middleware/upload");
 
@@ -13,6 +13,9 @@ router.post("/book", auth, upload.fields([
 
 // Get all books with search and pagination
 router.get("/books", getAll);
+
+// Get featured books
+router.get("/books/featured", getFeatured);
 
 // Get book by ID
 router.get("/book/:id", getById);
